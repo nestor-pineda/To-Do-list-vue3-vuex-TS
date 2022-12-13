@@ -1,0 +1,18 @@
+{
+  "to-dos": [
+    {
+      "title": "The First To Do",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "tags": ["work"],
+      "priority": ["medium"],
+      "id": 1
+    },
+    {
+      "title": "The Second To Do",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "tags": ["lessure"],
+      "priority": ["important"],
+      "id": 2
+    }
+  ]
+}
