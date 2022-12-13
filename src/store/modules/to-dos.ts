@@ -1,10 +1,12 @@
 import { GetterTree, MutationTree, ActionTree } from "vuex";
 import { RootState } from "@/store/index";
+import { NewToDoItemInterface } from "@/interfaces/toDosInterface";
 
 export interface ToDosStateInterface {
   toDos: ToDoItemInterface[];
   loading: boolean;
   error: string;
+  newToDo: NewToDoItemInterface;
 }
 
 export interface ToDoItemInterface {
@@ -19,6 +21,13 @@ const state: ToDosStateInterface = {
   toDos: [],
   loading: false,
   error: "",
+  newToDo: {
+    title: "",
+    description: "",
+    tags: [],
+    // priority: [],
+  },
+  // newToDo: {} as NewToDoItemInterface,
 };
 
 const getters: GetterTree<ToDosStateInterface, RootState> = {
@@ -33,6 +42,9 @@ const getters: GetterTree<ToDosStateInterface, RootState> = {
   getError(state: ToDosStateInterface): string {
     return state.error;
   },
+  // getNewToDo(state: ToDosStateInterface) {
+  //   return state.newToDo;
+  // },
 };
 
 const mutations: MutationTree<ToDosStateInterface> = {
@@ -49,10 +61,15 @@ const mutations: MutationTree<ToDosStateInterface> = {
   SET_ERROR(state: ToDosStateInterface, payload: string) {
     state.error = payload;
   },
+  // Used to set a new To Do in the State
+  SET_NEW_TO_DO(state: ToDosStateInterface, payload: NewToDoItemInterface) {
+    state.newToDo = payload;
+    console.log(state.toDos);
+  },
 };
 
 const actions: ActionTree<ToDosStateInterface, RootState> = {
-  async getToDos({ commit }): Promise<void> {
+  async fetchToDos({ commit }): Promise<void> {
     commit("SET_LOADING", true);
     try {
       const data = await fetch("http://localhost:3000/to-dos");
@@ -61,10 +78,33 @@ const actions: ActionTree<ToDosStateInterface, RootState> = {
       }
       const json = await data.json();
       commit("SET_TO_DOS", json);
-      // commit("SET_LOADING", false);
-    } catch (err) {
-      commit("SET_ERROR", err);
-      console.log(err);
+    } catch (error) {
+      commit("SET_ERROR", error);
+      console.log(error);
+    } finally {
+      commit("SET_LOADING", false);
+    }
+  },
+  async addToDo({ commit }, payload: NewToDoItemInterface): Promise<void> {
+    commit("SET_LOADING", true);
+    try {
+      const data = await fetch("http://localhost:3000/to-dos", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": "token-value",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (!data.ok) {
+        const message = `An error has occured: ${data.status} - ${data.statusText}`;
+        throw new Error(message);
+      }
+      const json = await data.json;
+      commit("SET_NEW_TO_DO", json);
+    } catch (error) {
+      commit("SET_ERROR", error);
+      console.log(error);
     } finally {
       commit("SET_LOADING", false);
     }
