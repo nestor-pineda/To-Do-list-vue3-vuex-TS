@@ -1,14 +1,12 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
+import { toDosModule, ToDosStateInterface } from "./modules/to-dos";
 
-export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+export interface RootState {
+  toDosModule: ToDosStateInterface;
+}
+
+export default createStore<RootState>({
   modules: {
-  }
-})
+    toDosModule,
+  },
+});
