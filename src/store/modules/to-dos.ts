@@ -13,7 +13,7 @@ export interface ToDoItemInterface {
   title: string;
   description: string;
   tags: string[];
-  priority: string[];
+  priority: string;
   id: number;
 }
 
@@ -66,6 +66,10 @@ const mutations: MutationTree<ToDosStateInterface> = {
     state.newToDo = payload;
     console.log(state.toDos);
   },
+  DELETE_TO_DO(state: ToDosStateInterface, payload) {
+    const itemIntex = state.toDos.indexOf(payload);
+    state.toDos.splice(itemIntex, 1);
+  },
 };
 
 const actions: ActionTree<ToDosStateInterface, RootState> = {
@@ -102,6 +106,21 @@ const actions: ActionTree<ToDosStateInterface, RootState> = {
       }
       const json = await data.json;
       commit("SET_NEW_TO_DO", json);
+    } catch (error) {
+      commit("SET_ERROR", error);
+      console.log(error);
+    } finally {
+      commit("SET_LOADING", false);
+    }
+  },
+  async deleteToDo({ commit }, payload) {
+    commit("SET_LOADING", true);
+    try {
+      await fetch(`http://localhost:3000/to-dos/${payload}`, {
+        method: "delete",
+      });
+
+      commit("DELETE_TO_DO", payload);
     } catch (error) {
       commit("SET_ERROR", error);
       console.log(error);

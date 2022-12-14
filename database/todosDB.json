@@ -1,15 +1,6 @@
 {
   "to-dos": [
     {
-      "title": "The First To Do",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "tags": [
-        "work"
-      ],
-      "priority": "important",
-      "id": 1
-    },
-    {
       "title": "The Second To Do",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "tags": [
@@ -28,55 +19,13 @@
       "id": 3
     },
     {
-      "title": "eeee",
-      "description": "3333324",
-      "tags": [],
+      "title": "The title chocolate",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "tags": [
+        "chocolate"
+      ],
       "priority": "critical",
       "id": 4
-    },
-    {
-      "title": "ee",
-      "description": "ee",
-      "tags": [],
-      "priority": "critical",
-      "id": 5
-    },
-    {
-      "title": "asdfdsfasf",
-      "description": "sdfadfadfdfadf",
-      "tags": [
-        "sfsaf",
-        "sdfasfdfdsfadsf"
-      ],
-      "priority": "important",
-      "id": 6
-    },
-    {
-      "title": "chocolate",
-      "description": "maracuya",
-      "tags": [
-        "wer"
-      ],
-      "priority": "critical",
-      "id": 7
-    },
-    {
-      "title": "fgsfgfgdfdg",
-      "description": "maracuya",
-      "tags": [
-        "wer"
-      ],
-      "priority": "critical",
-      "id": 8
-    },
-    {
-      "title": "flauta",
-      "description": "instrumento de viento",
-      "tags": [
-        "instrumento"
-      ],
-      "priority": "critical",
-      "id": 9
     }
   ]
 }

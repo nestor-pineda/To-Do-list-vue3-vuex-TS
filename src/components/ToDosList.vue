@@ -4,8 +4,9 @@
   <div v-if="loading">...LOADING...</div>
   <div v-else>
     <div v-for="item in toDosList" :key="item.id">
-      <h3>{{ item.title }}</h3>
+      <h3 :class="item.priority === 'important' ? 'important' : item.priority === 'critical' ? 'critical' : 'default'">{{ item.title }}</h3>
       <p>{{ item.description }}</p>
+      <button @click="handleDelete(item.id)">Delete</button>
     </div>
   </div>
 </template>
@@ -23,9 +24,24 @@ export default defineComponent({
     const loading = computed<boolean>(() => store.getters["toDosModule/isLoading"]);
     const error = computed<string>(() => store.getters["toDosModule/getError"]);
 
-    return { toDosList, loading, error };
+    const handleDelete = (id: number) => {
+      store.dispatch("toDosModule/deleteToDo", id);
+      console.log(id);
+    };
+
+    return { toDosList, loading, error, handleDelete };
   },
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.critical {
+  color: red;
+}
+.important {
+  color: orange;
+}
+.default {
+  color: grey;
+}
+</style>
