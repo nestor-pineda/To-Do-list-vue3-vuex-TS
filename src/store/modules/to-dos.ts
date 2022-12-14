@@ -25,7 +25,7 @@ const state: ToDosStateInterface = {
     title: "",
     description: "",
     tags: [],
-    // priority: [],
+    priority: "",
   },
   // newToDo: {} as NewToDoItemInterface,
 };
