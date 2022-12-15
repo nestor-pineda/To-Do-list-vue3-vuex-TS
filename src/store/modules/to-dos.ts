@@ -6,6 +6,7 @@ export interface ToDosStateInterface {
   toDos: ToDoItemInterface[];
   loading: boolean;
   error: string;
+  toDo: ToDoItemInterface;
   newToDo: NewToDoItemInterface;
 }
 
@@ -21,6 +22,7 @@ const state: ToDosStateInterface = {
   toDos: [],
   loading: false,
   error: "",
+  toDo: {} as ToDoItemInterface,
   newToDo: {
     title: "",
     description: "",
@@ -41,6 +43,9 @@ const getters: GetterTree<ToDosStateInterface, RootState> = {
   },
   getError(state: ToDosStateInterface): string {
     return state.error;
+  },
+  getSingleToDo(state: ToDosStateInterface) {
+    return state.toDo;
   },
   // getNewToDo(state: ToDosStateInterface) {
   //   return state.newToDo;
@@ -70,6 +75,10 @@ const mutations: MutationTree<ToDosStateInterface> = {
     const itemIntex = state.toDos.indexOf(payload);
     state.toDos.splice(itemIntex, 1);
   },
+  SET_SINGLE_TO_DO(state: ToDosStateInterface, paylod: ToDoItemInterface) {
+    state.toDo = paylod;
+    console.log(state.toDo);
+  },
 };
 
 const actions: ActionTree<ToDosStateInterface, RootState> = {
@@ -82,6 +91,22 @@ const actions: ActionTree<ToDosStateInterface, RootState> = {
       }
       const json = await data.json();
       commit("SET_TO_DOS", json);
+    } catch (error) {
+      commit("SET_ERROR", error);
+      console.log(error);
+    } finally {
+      commit("SET_LOADING", false);
+    }
+  },
+  async fetchToDoById({ commit }, payload): Promise<void> {
+    commit("SET_LOADING", true);
+    try {
+      const data = await fetch(`http://localhost:3000/to-dos/${payload}`);
+      if (!data.ok) {
+        throw Error("Failed to set To Dos");
+      }
+      const json = await data.json();
+      commit("SET_SINGLE_TO_DO", json);
     } catch (error) {
       commit("SET_ERROR", error);
       console.log(error);
