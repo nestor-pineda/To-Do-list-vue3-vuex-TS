@@ -86,6 +86,16 @@ const mutations: MutationTree<ToDosStateInterface> = {
     });
     state.toDosFilter = result;
   },
+  GET_TO_DO_BY_STATUS(state: ToDosStateInterface, payload: string) {
+    const formatSearch = payload.toLowerCase();
+    const result = state.toDos.filter((item) => {
+      const formatTitle = item.title.toLowerCase();
+      if (formatTitle.includes(formatSearch)) {
+        return item;
+      }
+    });
+    state.toDosFilter = result;
+  },
 };
 
 const actions: ActionTree<ToDosStateInterface, RootState> = {

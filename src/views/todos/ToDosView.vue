@@ -1,16 +1,18 @@
 <template>
-  <FilterToDos />
+  <FilterByPriority />
+  <FilterByTitle />
   <ToDosList />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import ToDosList from "@/components/toDos/ToDosList.vue";
-import FilterToDos from "@/components/toDos/FilterToDos.vue";
+import FilterByPriority from "@/components/toDos/FilterByPriority.vue";
+import FilterByTitle from "@/components/toDos/FilterByTitle.vue";
 
 export default defineComponent({
   name: "ToDosView",
-  components: { ToDosList, FilterToDos },
+  components: { ToDosList, FilterByPriority, FilterByTitle },
   setup() {
     return {};
   },
