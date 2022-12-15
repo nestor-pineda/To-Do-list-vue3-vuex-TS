@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import ToDosList from "@/components/ToDosList.vue";
+import ToDosList from "@/components/toDos/ToDosList.vue";
 import AddToDo from "@/components/AddToDo.vue";
 
 export default defineComponent({

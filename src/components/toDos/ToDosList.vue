@@ -6,6 +6,9 @@
     <div v-for="item in toDosList" :key="item.id">
       <h3 :class="item.priority === 'important' ? 'important' : item.priority === 'critical' ? 'critical' : 'default'">{{ item.title }}</h3>
       <p>{{ item.description }}</p>
+      <router-link :to="{ name: 'singleToDos', params: { id: item.id } }">
+        <p>Read more</p>
+      </router-link>
       <button @click="handleDelete(item.id)">Delete</button>
     </div>
   </div>
