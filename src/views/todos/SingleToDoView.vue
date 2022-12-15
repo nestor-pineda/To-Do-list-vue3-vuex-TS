@@ -13,7 +13,7 @@ import { computed, defineComponent } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
-  name: "SingleToDosView",
+  name: "SingleToDoView",
   components: {},
   props: ["id"],
   setup(props) {

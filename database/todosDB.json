@@ -17,6 +17,23 @@
       ],
       "priority": "important",
       "id": 3
+    },
+    {
+      "title": "Lets see if all works",
+      "description": "This is just a text that will ac as the excerpt of this task",
+      "tags": [
+        "test",
+        "addingtask"
+      ],
+      "priority": "critical",
+      "id": 4
+    },
+    {
+      "title": "This is a medium title",
+      "description": "Som text for a medium priority Todo. Lest se if everything is working correctly.",
+      "tags": [],
+      "priority": "critical",
+      "id": 5
     }
   ]
 }

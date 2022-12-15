@@ -4,6 +4,7 @@ import { NewToDoItemInterface } from "@/interfaces/toDosInterface";
 
 export interface ToDosStateInterface {
   toDos: ToDoItemInterface[];
+  toDosFilter: ToDoItemInterface[];
   loading: boolean;
   error: string;
   toDo: ToDoItemInterface;
@@ -20,6 +21,7 @@ export interface ToDoItemInterface {
 
 const state: ToDosStateInterface = {
   toDos: [],
+  toDosFilter: [],
   loading: false,
   error: "",
   toDo: {} as ToDoItemInterface,
@@ -29,34 +31,34 @@ const state: ToDosStateInterface = {
     tags: [],
     priority: "",
   },
-  // newToDo: {} as NewToDoItemInterface,
 };
 
 const getters: GetterTree<ToDosStateInterface, RootState> = {
-  // Returns all To dos items State
   getToDosList(state: ToDosStateInterface): ToDoItemInterface[] {
     return state.toDos;
   },
-  // Returns the loading State
+  getToDosListFilter(state: ToDosStateInterface): ToDoItemInterface[] {
+    return state.toDosFilter;
+  },
   isLoading(state: ToDosStateInterface): boolean {
     return state.loading;
   },
   getError(state: ToDosStateInterface): string {
     return state.error;
   },
-  getSingleToDo(state: ToDosStateInterface) {
+  getSingleToDo(state: ToDosStateInterface): ToDoItemInterface {
     return state.toDo;
   },
-  // getNewToDo(state: ToDosStateInterface) {
-  //   return state.newToDo;
-  // },
 };
 
 const mutations: MutationTree<ToDosStateInterface> = {
   // Used to set the fetched data into the State
   SET_TO_DOS(state: ToDosStateInterface, payload: ToDoItemInterface[]) {
     state.toDos = payload;
-    console.log(state.toDos);
+  },
+  // Used to set the filtered data into the State
+  SET_TO_DOS_FILTER(state: ToDosStateInterface, payload: ToDoItemInterface[]) {
+    state.toDosFilter = payload;
   },
   // Used to toggle the loading State
   SET_LOADING(state: ToDosStateInterface, payload: boolean) {
@@ -69,7 +71,6 @@ const mutations: MutationTree<ToDosStateInterface> = {
   // Used to set a new To Do in the State
   SET_NEW_TO_DO(state: ToDosStateInterface, payload: NewToDoItemInterface) {
     state.newToDo = payload;
-    console.log(state.toDos);
   },
   DELETE_TO_DO(state: ToDosStateInterface, payload) {
     const itemIntex = state.toDos.indexOf(payload);
@@ -77,7 +78,13 @@ const mutations: MutationTree<ToDosStateInterface> = {
   },
   SET_SINGLE_TO_DO(state: ToDosStateInterface, paylod: ToDoItemInterface) {
     state.toDo = paylod;
-    console.log(state.toDo);
+  },
+  // Used to set the array of item filtered by prioroty
+  GET_TO_DO_FILTERED(state: ToDosStateInterface, payload) {
+    const result = state.toDos.filter((item) => {
+      return item.priority.includes(payload);
+    });
+    state.toDosFilter = result;
   },
 };
 
@@ -91,6 +98,7 @@ const actions: ActionTree<ToDosStateInterface, RootState> = {
       }
       const json = await data.json();
       commit("SET_TO_DOS", json);
+      commit("SET_TO_DOS_FILTER", json);
     } catch (error) {
       commit("SET_ERROR", error);
       console.log(error);
@@ -98,7 +106,7 @@ const actions: ActionTree<ToDosStateInterface, RootState> = {
       commit("SET_LOADING", false);
     }
   },
-  async fetchToDoById({ commit }, payload): Promise<void> {
+  async fetchToDoById({ commit }, payload: string): Promise<void> {
     commit("SET_LOADING", true);
     try {
       const data = await fetch(`http://localhost:3000/to-dos/${payload}`);

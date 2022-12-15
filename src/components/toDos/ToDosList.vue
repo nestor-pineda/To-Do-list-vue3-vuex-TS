@@ -5,12 +5,6 @@
   <div v-else>
     <div v-for="toDo in toDosList" :key="toDo.id">
       <ToDoExcerpt :toDo="toDo" />
-      <!-- <h3 :class="item.priority === 'important' ? 'important' : item.priority === 'critical' ? 'critical' : 'default'">{{ item.title }}</h3>
-      <p>{{ item.description }}</p>
-      <router-link :to="{ name: 'singleToDos', params: { id: item.id } }">
-        <p>Read more</p>
-      </router-link>
-      <button @click="handleDelete(item.id)">Delete</button> -->
     </div>
   </div>
 </template>
@@ -26,7 +20,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     store.dispatch("toDosModule/fetchToDos");
-    const toDosList = computed<ToDoItemInterface[]>(() => store.getters["toDosModule/getToDosList"]);
+    const toDosList = computed<ToDoItemInterface[]>(() => store.getters["toDosModule/getToDosListFilter"]);
     const loading = computed<boolean>(() => store.getters["toDosModule/isLoading"]);
     const error = computed<string>(() => store.getters["toDosModule/getError"]);
 

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import ToDosView from "@/views/toDos/ToDosView.vue";
-import SingleToDosView from "@/views/toDos/SingleToDosView.vue";
+import SingleToDoView from "@/views/toDos/SingleToDoView.vue";
 import EditToDoView from "@/views/toDos/EditToDoView.vue";
 import AddToDoView from "@/views/toDos/AddToDoView.vue";
 
@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/todos/:id",
     name: "singleToDos",
-    component: SingleToDosView,
+    component: SingleToDoView,
     props: true,
   },
   {
