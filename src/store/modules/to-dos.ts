@@ -19,6 +19,11 @@ export interface ToDoItemInterface {
   id: number;
 }
 
+export interface EditPayloadInterface {
+  title: string;
+  id: string;
+}
+
 const state: ToDosStateInterface = {
   toDos: [],
   toDosFilter: [],
@@ -149,6 +154,25 @@ const actions: ActionTree<ToDosStateInterface, RootState> = {
       }
       const json = await data.json;
       commit("SET_NEW_TO_DO", json);
+    } catch (error) {
+      commit("SET_ERROR", error);
+      console.log(error);
+    } finally {
+      commit("SET_LOADING", false);
+    }
+  },
+  async editToDo({ commit }, payload: EditPayloadInterface) {
+    commit("SET_LOADING", true);
+    try {
+      const data = await fetch(`http://localhost:3000/to-dos/${payload.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: payload.title }),
+      });
+      if (!data.ok) {
+        const message = `An error has occured: ${data.status} - ${data.statusText}`;
+        throw new Error(message);
+      }
     } catch (error) {
       commit("SET_ERROR", error);
       console.log(error);

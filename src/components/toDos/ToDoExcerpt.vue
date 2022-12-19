@@ -17,7 +17,6 @@ export default defineComponent({
     const store = useStore();
     const handleDelete = (id: number) => {
       store.dispatch("toDosModule/deleteToDo", id);
-      console.log(id);
     };
     return { handleDelete };
   },

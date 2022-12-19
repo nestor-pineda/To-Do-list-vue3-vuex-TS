@@ -20,6 +20,8 @@ nav {
     font-weight: bold;
     color: #2c3e50;
     padding: 0 10px;
+    font-family: "Clash Display", sans-serif;
+    font-weight: 700;
 
     &.router-link-exact-active {
       color: #42b983;
