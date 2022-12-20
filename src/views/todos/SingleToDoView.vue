@@ -11,22 +11,20 @@
 </template>
 
 <script lang="ts">
-import { ToDoItemInterface } from "@/store/modules/to-dos";
-import { computed, defineComponent, ref } from "vue";
+// import { ToDoItemInterface } from "@/store/modules/to-dos";
+import { defineComponent, ref } from "vue";
 import { RouterLink } from "vue-router";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
+import { useFetchToDoById, useGettersToDos } from "@/composables";
 
 export default defineComponent({
   name: "SingleToDoView",
-  components: {},
   props: ["id"],
   setup(props) {
-    const store = useStore();
     const toDoId = ref<string>(props.id);
-    store.dispatch("toDosModule/fetchToDoById", props.id);
-    const singleToDo = computed<ToDoItemInterface>(() => store.getters["toDosModule/getSingleToDo"]);
-    const loading = computed<boolean>(() => store.getters["toDosModule/isLoading"]);
-    const error = computed<string>(() => store.getters["toDosModule/getError"]);
+    useFetchToDoById(props.id);
+
+    const { singleToDo, loading, error } = useGettersToDos();
 
     return { singleToDo, loading, error, toDoId };
   },

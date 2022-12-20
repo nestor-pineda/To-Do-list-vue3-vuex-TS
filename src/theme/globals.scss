@@ -1,0 +1,30 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: rgb(242, 242, 242);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Switzer", sans-serif;
+  font-weight: 600;
+}
+
+p,
+a,
+li {
+  font-family: "Switzer", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+}
