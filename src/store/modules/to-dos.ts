@@ -2,6 +2,8 @@ import { GetterTree, MutationTree, ActionTree } from "vuex";
 import { RootState } from "@/store/index";
 import { NewToDoItemInterface } from "@/interfaces/toDosInterface";
 
+//json-server --watch database/todosDB.json
+
 export interface ToDosStateInterface {
   toDos: ToDoItemInterface[];
   toDosFilter: ToDoItemInterface[];

@@ -62,7 +62,6 @@ export default defineComponent({
 
     const handleSubmit = () => {
       store.dispatch("toDosModule/addToDo", newToDo);
-      console.log(newToDo);
       newToDo.title = "";
       newToDo.description = "";
       newToDo.tags = [];

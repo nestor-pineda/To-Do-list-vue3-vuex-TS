@@ -1,42 +1,40 @@
 <template>
-  <div><h1>Hello</h1></div>
   <div v-if="error">{{ error }}</div>
   <div v-if="loading">...LOADING...</div>
-  <div v-else>
-    <div v-for="toDo in toDosList" :key="toDo.id">
+  <div v-else class="notes-list">
+    <div class="note" v-for="toDo in toDosList" :key="toDo.id">
       <ToDoExcerpt :toDo="toDo" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ToDoItemInterface } from "@/store/modules/to-dos";
-import { computed, defineComponent } from "vue";
-import { useStore } from "vuex";
+import { defineComponent } from "vue";
 import ToDoExcerpt from "./ToDoExcerpt.vue";
+import { useFetchToDos, useGettersToDos } from "@/composables";
 
 export default defineComponent({
   components: { ToDoExcerpt },
   setup() {
-    const store = useStore();
-    store.dispatch("toDosModule/fetchToDos");
-    const toDosList = computed<ToDoItemInterface[]>(() => store.getters["toDosModule/getToDosListFilter"]);
-    const loading = computed<boolean>(() => store.getters["toDosModule/isLoading"]);
-    const error = computed<string>(() => store.getters["toDosModule/getError"]);
+    useFetchToDos();
+    const { toDosList, loading, error } = useGettersToDos();
 
     return { toDosList, loading, error };
   },
 });
 </script>
 
-<style scoped>
-.critical {
-  color: red;
-}
-.important {
-  color: orange;
-}
-.default {
-  color: grey;
+<style scoped lang="scss">
+.notes-list {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  .note {
+    /* flex-grow: 1; */
+    flex-basis: 200px;
+    aspect-ratio: 1;
+  }
 }
 </style>
