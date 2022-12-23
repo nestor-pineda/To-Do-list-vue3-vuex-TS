@@ -15,16 +15,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, PropType, Ref, ref } from "vue";
 import { useStore } from "vuex";
 import { ToDosStateInterface } from "@/store/modules/to-dos";
 import { useFetchToDoById } from "@/composables";
 import { RouterLink } from "vue-router";
+import { ToDoItemInterface } from "@/interfaces/toDosInterface";
 
 export default defineComponent({
   props: ["toDo", "id"],
+
+  // props: {
+  //   toDo: {
+  //     type: Object as PropType<ToDoItemInterface>,
+  //     required: true,
+  //   },
+  //   id: {
+  //     type: Number,
+  //     required: true,
+  //   },
+  // },
+
   setup(props) {
     const store = useStore<ToDosStateInterface>();
+
     const handleDelete = (id: number) => {
       store.dispatch("toDosModule/deleteToDo", id);
     };

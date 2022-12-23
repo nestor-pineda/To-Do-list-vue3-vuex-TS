@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue";
 import { useStore } from "vuex";
-import { EditPayloadInterface } from "@/store/modules/to-dos";
+import { EditPayloadInterface } from "@/interfaces/toDosInterface";
 import { useRouter } from "vue-router";
 
 export default defineComponent({

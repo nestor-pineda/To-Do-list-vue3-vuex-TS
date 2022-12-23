@@ -1,6 +1,6 @@
 import { GetterTree, MutationTree, ActionTree } from "vuex";
 import { RootState } from "@/store/index";
-import { NewToDoItemInterface } from "@/interfaces/toDosInterface";
+import { ToDoItemInterface, NewToDoItemInterface, EditPayloadInterface } from "@/interfaces/toDosInterface";
 
 //json-server --watch database/todosDB.json
 
@@ -11,19 +11,6 @@ export interface ToDosStateInterface {
   error: string;
   toDo: ToDoItemInterface;
   newToDo: NewToDoItemInterface;
-}
-
-export interface ToDoItemInterface {
-  title: string;
-  description: string;
-  tags: string[];
-  priority: string;
-  id: number;
-}
-
-export interface EditPayloadInterface {
-  title: string;
-  id: string;
 }
 
 const state: ToDosStateInterface = {
@@ -79,7 +66,7 @@ const mutations: MutationTree<ToDosStateInterface> = {
   SET_NEW_TO_DO(state: ToDosStateInterface, payload: NewToDoItemInterface) {
     state.newToDo = payload;
   },
-  DELETE_TO_DO(state: ToDosStateInterface, payload) {
+  DELETE_TO_DO(state: ToDosStateInterface, payload: ToDoItemInterface) {
     const itemIntex = state.toDos.indexOf(payload);
     state.toDos.splice(itemIntex, 1);
   },
@@ -87,7 +74,7 @@ const mutations: MutationTree<ToDosStateInterface> = {
     state.toDo = paylod;
   },
   // Used to set the array of item filtered by prioroty
-  GET_TO_DO_FILTERED(state: ToDosStateInterface, payload) {
+  GET_TO_DO_FILTERED(state: ToDosStateInterface, payload: string) {
     const result = state.toDos.filter((item) => {
       return item.priority.includes(payload);
     });
@@ -182,7 +169,7 @@ const actions: ActionTree<ToDosStateInterface, RootState> = {
       commit("SET_LOADING", false);
     }
   },
-  async deleteToDo({ commit }, payload) {
+  async deleteToDo({ commit }, payload: number) {
     commit("SET_LOADING", true);
     try {
       await fetch(`http://localhost:3000/to-dos/${payload}`, {

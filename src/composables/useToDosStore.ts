@@ -1,10 +1,12 @@
-import { ToDoItemInterface, ToDosStateInterface } from "@/store/modules/to-dos";
+import { ToDoItemInterface } from "@/interfaces/toDosInterface";
+import { ToDosStateInterface } from "@/store/modules/to-dos";
 import { computed } from "vue";
 import { useStore } from "vuex";
 
 export const useFetchToDos = () => {
   const store = useStore<ToDosStateInterface>();
   store.dispatch("toDosModule/fetchToDos");
+
   return;
 };
 
@@ -20,11 +22,13 @@ export const useGettersToDos = () => {
   const loading = computed<boolean>(() => store.getters["toDosModule/isLoading"]);
   const error = computed<string>(() => store.getters["toDosModule/getError"]);
   const singleToDo = computed<ToDoItemInterface>(() => store.getters["toDosModule/getSingleToDo"]);
+
   return { toDosList, loading, error, singleToDo };
 };
 
-export const useFetchToDoById = (id: any) => {
+export const useFetchToDoById = (id: number) => {
   const store = useStore<ToDosStateInterface>();
   store.dispatch("toDosModule/fetchToDoById", id);
+
   return;
 };

@@ -27,13 +27,6 @@
       ],
       "priority": "critical",
       "id": 4
-    },
-    {
-      "title": "Cambiamos l titulo",
-      "description": "Som text for a medium priority Todo. Lest se if everything is working correctly.",
-      "tags": [],
-      "priority": "critical",
-      "id": 5
     }
   ]
 }
